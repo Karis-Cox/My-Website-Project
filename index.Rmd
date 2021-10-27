@@ -1,0 +1,16 @@
+---
+title: "Karis Cox"
+image: "karis.JPG"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/in/kariscox"
+  - label: GitHub
+    url: "https://github.com/Karis-Cox"
+  - label: Email
+    url: "mailto:kariscox.kc@gmail.com"
+output:
+  postcards::jolla
+site: distill::distill_website
+---
+ 
+I am a Graduate Student at Mississippi State University with plans to graduate in May with a Master of Professional Accountancy and a minor in Data Analytics. I will then go to work at Byrne Zizzi, CPA in Tupelo, MS as a Tax Associate. I enjoy travelling, learning, and spending time with my family. 
