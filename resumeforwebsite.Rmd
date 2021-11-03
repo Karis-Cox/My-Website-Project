@@ -1,0 +1,96 @@
+---
+title: "Karis Cox"
+description: |
+  A new article created using the Distill format.
+author:
+  - name: Nora Jones 
+    url: https://example.com/norajones
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+
+# Karis Cox
+\vspace{-5truemm}
+[**kariscox.kc\@gmail.com**](mailto:kariscox.kc@gmail.com){.email}\
+662-542-1650\
+5474 Macedonia Road\
+Houlka, MS 38850
+
+# *Education*
+
+\vspace{-5truemm}
+
+### Mississippi State University. Mississippi State, MS
+\vspace{-5truemm}
+
+Expected Graduation May 2022\
+Master of Professional Accountancy\
+GPA: 4.0/4.0
+
+### Mississippi State University. Mississippi State, MS
+
+\vspace{-5truemm}
+
+Graduated May 2021\
+Bachelor of Accountancy\
+GPA: 4.0/4.0
+
+# *Relevant Work Experience*
+
+\vspace{-5truemm}
+
+## Graduate Teaching Assistant, June 2021-May 2022
+
+\vspace{-5truemm}
+
+### Adkerson School of Accountancy at Mississippi State University
+
+\vspace{-5truemm}
+
+• Conduct research for assigned faculty members\
+• Engage in literature searches\
+• Contribute to evaluation of accounting related teaching materials\
+• Lead students in supplemental instruction of accounting material
+
+## Administrative Assistant, September 2016-March 2020
+
+\vspace{-5truemm}
+
+### Byrne Zizzi CPA, Tupelo, MS
+
+\vspace{-5truemm}
+
+• Maintained electronic and paper files\
+• Input data into accounting database\
+• Gathered information and created spreadsheets outlining client's tax data\
+• Assisted tax preparers in preparation of income tax\
+• Welcomed visitors, answered phone calls, and maintained reception area\
+• Coordinated and scheduled appointments accurately
+
+# *Honors and Activities*
+
+\vspace{-5truemm}
+
+• Phi Theta Kappa (2017-2019)\
+• President's List (2017-current)\
+• Valedictorian & Leadership Scholarship Recipient (2017-2019)\
+• Business Administration Division Chair Representative (2019)\
+• Alpha Psi chapter of Delta Gamma Fraternity (2019-2020)\
+• ICC Honor College (2017)\
+• North Mississippi Big Brother/Big Sister (2017-2018)\
+• Gamma Beta Phi (2019-2020)\
+• Beta Alpha Psi Honor Society (2020-current)\
+• Stephen D. Lee Scholar (2021)
+
+# *Skills*
+
+\vspace{-5truemm}
+
+• Proficient in Microsoft Word, PowerPoint and Excel\
+• Working knowledge of Microsoft Access\
+• Efficient file management\
+• Strong written and oral communication skills
+
+
+

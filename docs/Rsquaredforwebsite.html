@@ -86,26 +86,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Karis Cox: Blog</title>
+  <title>Karis Cox: Untitled</title>
+
+  <meta property="description" itemprop="description" content="A new article created using the Distill format."/>
 
 
-
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-11-03"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-11-03"/>
+  <meta name="article:author" content="Nora Jones"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Karis Cox: Blog"/>
+  <meta property="og:title" content="Karis Cox: Untitled"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A new article created using the Distill format."/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="Karis Cox"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Karis Cox: Blog"/>
+  <meta property="twitter:title" content="Karis Cox: Untitled"/>
+  <meta property="twitter:description" content="A new article created using the Distill format."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","listing"]}},"value":[{"type":"character","attributes":{},"value":["Blog"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Untitled"]},{"type":"character","attributes":{},"value":["A new article created using the Distill format.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Nora Jones"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]},{"type":"character","attributes":{},"value":["Spacely Sprockets"]},{"type":"character","attributes":{},"value":["https://example.com/spacelysprokets"]}]}]},{"type":"character","attributes":{},"value":["2021-11-03"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2361,12 +2368,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 </head>
 
-<body class="layout-listing">
+<body>
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Blog","authors":[]}
+{"title":"Untitled","description":"A new article created using the Distill format.","authors":[{"author":"Nora Jones","authorURL":"https://example.com/norajones","affiliation":"Spacely Sprockets","affiliationURL":"https://example.com/spacelysprokets","orcidID":""}],"publishedDate":"2021-11-03T00:00:00.000+00:00","citationText":"Jones, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2390,175 +2397,215 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
-<!--radix_placeholder_article_listing-->
-
-
-<script type="application/javascript">
-
-function init_posts_list() {
-
-  function load_image(img) {
-    var src = $(img).attr('data-src');
-    if (src) {
-      $(img).attr('src', src);
-      $(img).load(function() {
-        img.removeAttribute('data-src');
-      });
-    }
-  }
-
-  function set_posts_visible(posts, visible) {
-    if (visible) {
-
-      // show bottom border by default
-      $(posts).removeClass('post-preview-last');
-
-      // apply limits if need be
-      var max_posts = 25;
-      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
-      if (apply_limits && posts.length > max_posts) {
-        posts = $(posts).slice(0, max_posts);
-      } else {
-        $('.posts-more a').addClass('hidden');
-      }
-
-      // apply last style
-      $(posts.slice(-1)[0]).addClass('post-preview-last');
-
-      $(posts).removeClass('hidden');
-      $(posts).find('img[data-src]').each(function(i, img) {
-        load_image(img);
-      });
-    } else {
-      $(posts).addClass('hidden');
-    }
-  }
-
-  function apply_hash_filter() {
-
-    // clear active state
-    $('.categories .active').removeClass('active');
-
-    // mark all posts invisible to start
-    set_posts_visible($('.posts-list').children('a'), false);
-
-    // if we have a hash filter
-    if (window.location.hash && window.location.hash.startsWith("#category:")) {
-
-      // mark posts that match the category visible
-      var page_category = window.location.hash.replace(/^#category:/, "");
-      var posts = $('.post-metadata').map(function(idx, script) {
-        var metadata = $.parseJSON($(script).html());
-        var post = null;
-        $.each(metadata.categories, function(idx, category) {
-          category = category.replace(/ /g,"_");
-          if ((page_category || '').toLowerCase() === "articles" || category === page_category) {
-            post = $(script).parent().get();
-            return false;
-          }
-        });
-        return post;
-      });
-      set_posts_visible(posts, true);
-
-      // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
-
-      // update the list_caption
-      var list_caption = $('.posts-list-caption');
-      var caption = (page_category || '').toLowerCase() === "articles"
-        ? list_caption.attr('data-caption')
-        : ('Category: ' + page_category.replace(/_/g," "));
-      list_caption.text(caption);
-
-    } else {
-
-      // no hash filter, make all posts visible (subject to max display)
-      set_posts_visible($('.posts-list').children(), true);
-
-      // reset list caption
-      var list_caption = $('.posts-list-caption');
-      list_caption.text(list_caption.attr('data-caption'));
-
-
-    }
-  }
-
-  // more articles
-  function apply_post_limits(apply) {
-    if (apply) {
-      $('.posts-container').addClass('posts-apply-limit');
-      $('.posts-more a').removeClass('hidden');
-    } else {
-      $('.posts-container').removeClass('posts-apply-limit');
-      $('.posts-more a').addClass('hidden');
-    }
-  }
-
-  // click handling for tags
-  $('.dt-tag').click(function(ev) {
-    window.location.hash = '#category:' + $(this).text().replace(/ /g, "_");
-    return false;
-  })
-
-  // hash filter handling
-  apply_hash_filter();
-  $(window).on('hashchange',function() {
-    apply_post_limits(true);
-    apply_hash_filter();
-  });
-
-  // more articles link
-  $('.posts-more a').click(function(e) {
-    e.preventDefault();
-    apply_post_limits(false);
-    apply_hash_filter();
-    return false;
-  });
-
-}
-
-</script>
-
-
-
-<div class="posts-container posts-apply-limit l-page">
-<div class="posts-list">
-<h1 class="posts-list-caption" data-caption="Blog">Blog</h1>
-<a href="posts/2021-10-27-welcome/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Oct. 27, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">Karis Anne Cox</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>welcome</h2>
-<div class="dt-tags"></div>
-<p>A short description of the post.</p>
-</div>
-</a>
-</div>
-<div class="posts-more">
-<a href="#">More articles &raquo;</a>
-</div>
-</div>
-<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>Blog</h1>
+<h1>Untitled</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>A new article created using the Distill format.</p></p>
 </div>
 
+<div class="d-byline">
+  Nora Jones <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> (Spacely Sprockets)<a href="https://example.com/spacelysprokets" class="uri">https://example.com/spacelysprokets</a>
+  
+<br/>2021-11-03
+</div>
 
 <div class="d-article">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p><a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">R-squared</a> is a statistic that often accompanies regression output. It ranges in value from 0 to 1 and is usually interpreted as summarizing the percent of variation in the response that the regression model explains. So an R-squared of 0.65 might mean that the model explains about 65% of the variation in our dependent variable. Given this logic, we prefer our regression models have a high R-squared.</p>
+<p>In R, we typically get R-squared by calling the summary function on a model object. Here’s a quick example using simulated data:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># independent variable</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span> 
+<span class='co'># for reproducibility</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span> 
+<span class='co'># dependent variable; function of x with random error</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>0.5</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span>,<span class='fl'>0</span>,<span class='fl'>3</span><span class='op'>)</span> 
+<span class='co'># simple linear regression</span>
+<span class='va'>mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>~</span><span class='va'>x</span><span class='op'>)</span>
+<span class='co'># request just the r-squared value</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>          
+</code></pre>
+</div>
+<pre><code>[1] 0.6026682</code></pre>
+</div>
+<p>One way to express R-squared is as the sum of squared fitted-value deviations divided by the sum of squared original-value deviations:</p>
+<p><span class="math display">\[
+R^{2} =  \frac{\sum (\hat{y} – \bar{\hat{y}})^{2}}{\sum (y – \bar{y})^{2}}
+\]</span></p>
+<p>We can calculate it directly using our model object like so:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># extract fitted (or predicted) values from model</span>
+<span class='va'>f</span> <span class='op'>&lt;-</span> <span class='va'>mod</span><span class='op'>$</span><span class='va'>fitted.values</span>
+<span class='co'># sum of squared fitted-value deviations</span>
+<span class='va'>mss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>f</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='co'># sum of squared original-value deviations</span>
+<span class='va'>tss</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>y</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='co'># r-squared</span>
+<span class='va'>mss</span><span class='op'>/</span><span class='va'>tss</span>                      
+</code></pre>
+</div>
+<pre><code>[1] 0.6026682</code></pre>
+</div>
+<p>1. <em>R-squared does not measure goodness of fit. It can be arbitrarily low when the model is completely correct.</em> By making<span class="math inline">\(σ^2\)</span> large, we drive R-squared towards 0, even when every assumption of the simple linear regression model is correct in every particular.</p>
+<p>What is <span class="math inline">\(σ^2\)</span>? When we perform linear regression, we assume our model almost predicts our dependent variable. The difference between “almost” and “exact” is assumed to be a draw from a Normal distribution with mean 0 and some variance we call <span class="math inline">\(σ^2\)</span>.</p>
+<p>This statement is easy enough to demonstrate. The way we do it here is to create a function that (1) generates data meeting the assumptions of simple linear regression (independent observations, normally distributed errors with constant variance), (2) fits a simple linear model to the data, and (3) reports the R-squared. Notice the only parameter for sake of simplicity is <code>sigma</code>. We then “apply” this function to a series of increasing <span class="math inline">\(σ\)</span> values and plot the results.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>r2.0</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>sig</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'># our predictor</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>10</span>,length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>   
+  <span class='co'># our response; a function of x plus some random noise</span>
+  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1.2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>0</span>,sd <span class='op'>=</span> <span class='va'>sig</span><span class='op'>)</span> 
+  <span class='co'># print the R-squared value</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>          
+<span class='op'>}</span>
+<span class='va'>sigmas</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0.5</span>,<span class='fl'>20</span>,length.out <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+ <span class='co'># apply our function to a series of sigma values</span>
+<span class='va'>rout</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>sigmas</span>, <span class='va'>r2.0</span><span class='op'>)</span>            
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rout</span> <span class='op'>~</span> <span class='va'>sigmas</span>, type<span class='op'>=</span><span class='st'>"b"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="Rsquaredforwebsite_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>R-squared tanks hard with increasing sigma, even though the model is <em>completely correct</em> in every respect.</p>
+<ol start="2" type="1">
+<li><em>R-squared can be arbitrarily close to 1 when the model is totally wrong.</em></li>
+</ol>
+<p>The point being made is that R-squared does not measure goodness of fit.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># our predictor is data from an exponential distribution</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Exponential.html'>rexp</a></span><span class='op'>(</span><span class='fl'>50</span>,rate<span class='op'>=</span><span class='fl'>0.005</span><span class='op'>)</span>
+<span class='co'># non-linear data generation</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>x</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span> <span class='op'>*</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>50</span>, min<span class='op'>=</span><span class='fl'>0.8</span>, max<span class='op'>=</span><span class='fl'>1.2</span><span class='op'>)</span> 
+<span class='co'># clearly non-linear</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span>             
+</code></pre>
+</div>
+<p><img src="Rsquaredforwebsite_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.8485146</code></pre>
+</div>
+<p>It’s very high at about 0.85, but the model is completely wrong. Using R-squared to justify the “goodness” of our model in this instance would be a mistake. Hopefully one would plot the data first and recognize that a simple linear regression in this case would be inappropriate.</p>
+<p>3. <em>R-squared says nothing about prediction error, even with</em> <span class="math inline">\(σ^2\)</span> exactly the same, and no change in the coefficients. R-squared can be anywhere between 0 and 1 just by changing the range of X. We’re better off using Mean Square Error (MSE) as a measure of prediction error.</p>
+<p>MSE is basically the fitted y values minus the observed y values, squared, then summed, and then divided by the number of observations.</p>
+<p>Let’s demonstrate this statement by first generating data that meets all simple linear regression assumptions and then regressing y on x to assess both R-squared and MSE.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>10</span>,length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1.2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>0</span>,sd <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
+<span class='va'>mod1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod1</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.9383379</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Mean squared error</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span><span class='op'>(</span><span class='va'>mod1</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.6468052</code></pre>
+</div>
+<p>Now repeat the above code, but this time with a different range of x. Leave everything else the same:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='co'># new range of x</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>      
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1.2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>0</span>,sd <span class='op'>=</span> <span class='fl'>0.9</span><span class='op'>)</span>
+<span class='va'>mod1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod1</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.1502448</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Mean squared error</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/fitted.values.html'>fitted</a></span><span class='op'>(</span><span class='va'>mod1</span><span class='op'>)</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>100</span>        
+</code></pre>
+</div>
+<pre><code>[1] 0.6468052</code></pre>
+</div>
+<p>The R-squared falls from 0.94 to 0.15 but the MSE remains the same. In other words the predictive ability is the same for both data sets, but the R-squared would lead you to believe the first example somehow had a model with more predictive power.</p>
+<ol start="4" type="1">
+<li><em>R-squared can easily go down when the model assumptions are better fulfilled.</em></li>
+</ol>
+<p>Let’s examine this by generating data that would benefit from transformation. Notice the R code below is very much like our previous efforts but now we exponentiate our y variable.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span> <span class='op'>-</span> <span class='fl'>0.09</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>0</span>,sd <span class='op'>=</span> <span class='fl'>2.5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.003281718</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span>, which<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="Rsquaredforwebsite_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
+</div>
+<p>R-squared is very low and our residuals vs. fitted plot reveals outliers and non-constant variance. A common fix for this is to log transform the data. Let’s try that and see what happens:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>~</span><span class='va'>x</span><span class='op'>)</span>,which <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> 
+</code></pre>
+</div>
+<p><img src="Rsquaredforwebsite_files/figure-html5/unnamed-chunk-9-1.png" width="624" /></p>
+</div>
+<p>The diagnostic plot looks much better. Our assumption of constant variance appears to be met. But look at the R-squared:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>~</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span> 
+</code></pre>
+</div>
+<pre><code>[1] 0.0006921086</code></pre>
+</div>
+<p>It’s even lower! This is an extreme case and it doesn’t always happen like this. In fact, a log transformation will usually produce an increase in R-squared. But as just demonstrated, assumptions that are better fulfilled don’t always lead to higher R-squared.</p>
+<ol start="5" type="1">
+<li><em>It is very common to say that R-squared is “the fraction of variance explained” by the regression.</em> <span class="math display">\[Yet\]</span> if we regressed X on Y, we’d get exactly the same R-squared. This in itself should be enough to show that a high R-squared says nothing about explaining one variable by another.</li>
+</ol>
+<p>This is the easiest statement to demonstrate:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>10</span>,length.out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>2</span> <span class='op'>+</span> <span class='fl'>1.2</span><span class='op'>*</span><span class='va'>x</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span>,<span class='fl'>0</span>,sd <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.737738</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.737738</code></pre>
+</div>
+<p>Does x explain y, or does y explain x? Are we saying “explain” to dance around the word “cause”? In a simple scenario with two variables such as this, R-squared is simply the square of the correlation between x and y:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>, <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'>~</span> <span class='va'>y</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span>, <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='va'>r.squared</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] TRUE</code></pre>
+</div>
+<p>Let’s recap:</p>
+<ul>
+<li><p>R-squared does not measure goodness of fit.</p></li>
+<li><p>R-squared does not measure predictive error.</p></li>
+<li><p>R-squared does not necessarily increase when assumptions are better satisfied.</p></li>
+<li><p>R-squared does not measure how one variable explains another.</p></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -2566,6 +2613,15 @@ function init_posts_list() {
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
