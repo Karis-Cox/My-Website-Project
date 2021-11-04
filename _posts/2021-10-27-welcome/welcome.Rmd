@@ -1,13 +1,12 @@
 ---
-title: "welcome"
+title: "Welcome"
 description: |
-  A short description of the post.
+  Welcome message for those viewing my website before I am done with it.
 author:
   - name: Karis Anne Cox
 date: 10-27-2021
 output:
-  distill::distill_article:
-    self_contained: false
+  distill::distill_article
 ---
 
 
@@ -15,8 +14,4 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
-
-Learn more about using Distill at <https://rstudio.github.io/distill>.
-
-
+Welcome to my website, and thank you for taking a look at it. Please understand this is a work in progress, and I will continue to add to and update as I can. Thanks!

@@ -1,6 +1,9 @@
 ---
 title: "Karis Cox"
-output: distill::distill_article
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
 ---
 
 [**kariscox.kc\@gmail.com**](mailto:kariscox.kc@gmail.com){.email}\
@@ -33,7 +36,8 @@ GPA: 4.0/4.0
 
 \vspace{-5truemm}
 
-## Graduate Teaching Assistant, June 2021-May 2022
+## Graduate Teaching Assistant
+### June 2021-May 2022
 
 \vspace{-5truemm}
 
@@ -46,7 +50,8 @@ GPA: 4.0/4.0
 • Contribute to evaluation of accounting related teaching materials\
 • Lead students in supplemental instruction of accounting material
 
-## Administrative Assistant, September 2016-March 2020
+## Administrative Assistant
+### September 2016-March 2020
 
 \vspace{-5truemm}
 
