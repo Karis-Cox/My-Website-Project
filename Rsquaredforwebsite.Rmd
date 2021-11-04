@@ -1,12 +1,9 @@
 ---
-title: "Untitled"
+title: "R Squared"
 description: |
-  A new article created using the Distill format.
+  Analyzing the Use of R Squared in Statistics and Research
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Karis Cox- from the class of Dr. Hunt
 date: "`r Sys.Date()`"
 output: distill::distill_article
 ---

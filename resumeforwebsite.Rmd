@@ -1,17 +1,8 @@
 ---
 title: "Karis Cox"
-description: |
-  A new article created using the Distill format.
-author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
 
-
-# Karis Cox
-\vspace{-5truemm}
 [**kariscox.kc\@gmail.com**](mailto:kariscox.kc@gmail.com){.email}\
 662-542-1650\
 5474 Macedonia Road\
@@ -22,10 +13,12 @@ Houlka, MS 38850
 \vspace{-5truemm}
 
 ### Mississippi State University. Mississippi State, MS
+
 \vspace{-5truemm}
 
 Expected Graduation May 2022\
 Master of Professional Accountancy\
+Minor in Data Analytics\
 GPA: 4.0/4.0
 
 ### Mississippi State University. Mississippi State, MS
@@ -88,9 +81,7 @@ GPA: 4.0/4.0
 \vspace{-5truemm}
 
 • Proficient in Microsoft Word, PowerPoint and Excel\
+• Proficient in Thomson Reuters Accounting Software\
 • Working knowledge of Microsoft Access\
 • Efficient file management\
 • Strong written and oral communication skills
-
-
-
