@@ -171,3 +171,4 @@ Let's recap:
 -   R-squared does not measure how one variable explains another.
 
 
+This information is from <https://data.library.virginia.edu/is-r-squared-useless/>. 

@@ -8,13 +8,18 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "About"
-      href: about.html
       menu:
         - text: "Resume"
           href: resumeforwebsite.html
     - text: "Blog"
       href: blog.html
-    - text: "R Squared"
-      href: Rsquaredforwebsite.html
+    - text: "Projects"
+      menu:
+        - text: "R Squared"
+          href: Rsquaredforwebsite.html
+        - text: "Machine Learning Model"
+          href: machinelearning.html
+        - text: "Final Project"
+          href: finalproject.html
 output: distill::distill_article
 theme: profhunt.css
