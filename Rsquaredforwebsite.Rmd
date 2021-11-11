@@ -45,7 +45,7 @@ mss/tss
 
 It is important to observe the faults of R-squared because of its frequent use in research and statistics. Because it is used often to measure goodness of fit, it is beneficial for us to examine the following idea regarding why it might not always be the best measure. 
 
-\. *R-squared does not measure goodness of fit. It can be arbitrarily low when the model is completely correct.* By making$σ^2$ large, we drive R-squared towards 0, even when every assumption of the simple linear regression model is correct in every particular.
+\ *R-squared does not measure goodness of fit. It can be arbitrarily low when the model is completely correct.* By making $σ^2$ large, we drive R-squared towards 0, even when every assumption of the simple linear regression model is correct in every particular.
 
 What is $σ^2$? When we perform linear regression, we assume our model almost predicts our dependent variable. The difference between "almost" and "exact" is assumed to be a draw from a Normal distribution with mean 0 and some variance we call $σ^2$.
 

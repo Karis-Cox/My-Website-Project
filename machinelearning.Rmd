@@ -1,8 +1,11 @@
 ---
-title: "machinelearning"
-author: "Karis Cox"
-date: "11/10/2021"
-output: html_document
+title: "Machine Learning-Clustering"
+description: |
+  An example of a machine learning model for dimensionality reduction
+author:
+  - name: Karis Cox- from the class of Dr. Hunt
+date: "`r Sys.Date()`"
+output: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
