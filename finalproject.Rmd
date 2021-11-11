@@ -1,0 +1,6 @@
+---
+title: "finalproject"
+author: "Karis Cox"
+date: "11/10/2021"
+output: html_document
+---
