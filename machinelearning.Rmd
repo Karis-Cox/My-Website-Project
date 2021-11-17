@@ -83,7 +83,7 @@ ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Species)
   geom_point(data=as.data.frame(ThreeClusters$centers), aes(color="Cluster center"), size=5) + theme(legend.title = element_blank())+ggtitle("Iris Cluster Demonstration")
 ```
 
-## 4 Cluster Centers
+## Four Cluster Centers
 
 And lastly, here is a table form of the data when 4 clusters are used.
 
