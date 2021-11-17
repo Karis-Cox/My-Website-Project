@@ -8,9 +8,100 @@ date: "`r Sys.Date()`"
 output: distill::distill_article
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(caret)
+trainIndex <- createDataPartition(iris$Species, p = .6, list = FALSE, times = 1)
+
+irisTrain <- iris[ trainIndex,]
+irisTest  <- iris[-trainIndex,]
+
+preProcValues <- preProcess(irisTrain, method = c("center", "scale"))
+trainTransformed <- predict(preProcValues, irisTrain)
+
+preProcValues <- preProcess(irisTest, method = c("center", "scale"))
+testTransformed <- predict(preProcValues, irisTest)
 ```
 #Clustering
 
-Clustering groups 
+In the following example I use spacial clustering to identify which data points belong to each classification. I use a k-means algorithm, one of the simplest to understand. I use 2, 3, and 4 clusters to see how well the data is centered around these cluster centers. 
+
+This is the full data set based on 2 clusters in a table form. 
+```{r}
+TwoClusters<-kmeans(trainTransformed[,-5],centers=2)
+Clusterdata<-trainTransformed
+Clusterdata$Cluster<-as.factor(TwoClusters$cluster)
+knitr::kable(Clusterdata)%>%
+  kableExtra::kable_styling("striped")%>%
+  kableExtra::scroll_box(width = "100%",height="300px")
+```
+
+Here are a few graphic representations showing how the data is split when 2 clusters are used. 
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)+facet_wrap(~Species)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Species))+geom_point(alpha=0.5) + 
+  geom_point(data=as.data.frame(TwoClusters$centers), aes(color="Cluster center"), size=5) + theme(legend.title = element_blank())+ggtitle("Iris Cluster Demonstration")
+```
+
+This is a table of the data when 3 data clusters are used. 
+
+```{r}
+ThreeClusters<-kmeans(trainTransformed[,-5],centers=3)
+Clusterdata<-trainTransformed
+Clusterdata$Cluster<-as.factor(ThreeClusters$cluster)
+knitr::kable(Clusterdata)%>%
+  kableExtra::kable_styling("striped")%>%
+  kableExtra::scroll_box(width = "100%",height="300px")
+```
+
+These graphs show how the data is split when 3 clusters are used rather than 2. As you can see, using 3 centers allows for a more accurate split of the data. 
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)+facet_wrap(~Species)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Species))+geom_point(alpha=0.5) + 
+  geom_point(data=as.data.frame(ThreeClusters$centers), aes(color="Cluster center"), size=5) + theme(legend.title = element_blank())+ggtitle("Iris Cluster Demonstration")
+```
+
+And lastly, here is a table form of the data when 4 clusters are used. 
+
+```{r}
+FourClusters<-kmeans(trainTransformed[,-5],centers=4)
+Clusterdata<-trainTransformed
+Clusterdata$Cluster<-as.factor(FourClusters$cluster)
+knitr::kable(Clusterdata)%>%
+  kableExtra::kable_styling("striped")%>%
+  kableExtra::scroll_box(width = "100%",height="300px")
+```
+
+Here are some visual representations of what the data would look like when split between 4 cluster centers. Because there are only 3 species, 4 cluster centers does not prove to be extra beneficial. 
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster))+geom_point(alpha=0.5)+facet_wrap(~Species)
+```
+
+```{r}
+ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Species))+geom_point(alpha=0.5) + 
+  geom_point(data=as.data.frame(FourClusters$centers), aes(color="Cluster center"), size=5) + theme(legend.title = element_blank())+ggtitle("Iris Cluster Demonstration")
+```
+
+
+
