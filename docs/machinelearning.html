@@ -2400,7 +2400,6 @@ About
 <a href="resumeforwebsite.html">Resume</a>
 </div>
 </div>
-<a href="blog.html">Blog</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
 Projects
@@ -2435,9 +2434,10 @@ Projects
 </div>
 
 <div class="d-article">
-<p>#Clustering</p>
+<h1 id="clustering">Clustering</h1>
 <p>In the following example I use spacial clustering to identify which data points belong to each classification. I use a k-means algorithm, one of the simplest to understand. I use 2, 3, and 4 clusters to see how well the data is centered around these cluster centers.</p>
-This is the full data set based on 2 clusters in a table form.
+<h2 id="two-cluster-centers">Two Cluster Centers</h2>
+<p>This is the full data set based on 2 clusters in a table form.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>TwoClusters</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='va'>trainTransformed</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>5</span><span class='op'>]</span>,centers<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
@@ -4549,7 +4549,7 @@ virginica
 </table>
 </div>
 </div>
-<p>Here are a few graphic representations showing how the data is split when 2 clusters are used.</p>
+<p>Here are a few graphic representations showing how the data is split when 2 clusters are used. As you can see, it splits one of the species pretty accurately. However, the other 2 do not split well when only two clusters are used.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>Clusterdata</span>,mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>Sepal.Width</span>,y<span class='op'>=</span><span class='va'>Petal.Width</span>,color<span class='op'>=</span><span class='va'>Cluster</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span><span class='fu'>geom_point</span><span class='op'>(</span>alpha<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span>
@@ -4572,6 +4572,7 @@ virginica
 </div>
 <p><img src="machinelearning_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
+<h2 id="three-cluster-centers">Three Cluster Centers</h2>
 <p>This is a table of the data when 3 data clusters are used.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -6707,6 +6708,7 @@ virginica
 </div>
 <p><img src="machinelearning_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
+<h2 id="four-cluster-centers">Four Cluster Centers</h2>
 <p>And lastly, here is a table form of the data when 4 clusters are used.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
