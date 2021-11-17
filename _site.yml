@@ -11,8 +11,6 @@ navbar:
       menu:
         - text: "Resume"
           href: resumeforwebsite.html
-    - text: "Blog"
-      href: blog.html
     - text: "Projects"
       menu:
         - text: "R Squared"
