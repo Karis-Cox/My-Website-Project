@@ -1,13 +1,9 @@
 ---
-title: "Final Project"
-description: |
-  Analyzing Absenteeism
-author:
-  - name: Karis Cox- from the class of Dr. Hunt
-date: "`r Sys.Date()`"
-output: distill::distill_article
+title: "absenteeism_at_work"
+author: "Karis Cox"
+date: "11/16/2021"
+output: html_document
 ---
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(caret)
 library(curl)
@@ -32,25 +28,7 @@ absentgbm<- train(
   tuneLength = 10,
   verbose=FALSE)
 
-#summary(absentgbm)
-
-#had to add something 
-library(gbm)
-V<-caret::varImp(absentgbm, n.trees=500)$importance%>%
-  arrange(desc(Overall))
-
-knitr::kable(V)%>%
-  kableExtra::kable_styling("striped")%>%
-  kableExtra::scroll_box(width = "50%",height="300px")
-
-ggplot2::ggplot(V, aes(x=reorder(rownames(V),Overall), y=Overall)) +
-geom_point( color="blue", size=4, alpha=0.6)+
-geom_segment( aes(x=rownames(V), xend=rownames(V), y=0, yend=Overall), 
-color='skyblue') +
-xlab('Variable')+
-ylab('Overall Importance')+
-theme_light() +
-coord_flip()
+summary(absentgbm)
 ```
 
 
