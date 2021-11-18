@@ -1,0 +1,35 @@
+---
+title: "absenteeism_at_work"
+author: "Karis Cox"
+date: "11/16/2021"
+output: html_document
+---
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(caret)
+library(curl)
+library(tidyverse)
+library(rsample)
+#save(Absenteeism_at_work, file = "Absenteeism_at_work.Rda")
+load(file = "Absenteeism_at_work.Rda")
+```
+
+```{r}
+trainIndex <- createDataPartition(Absenteeism_at_work$`Absenteeism time in hours`, p = .6, list = FALSE, times = 1)
+AbsentTrain <- Absenteeism_at_work[ trainIndex,]
+AbsentTest  <- Absenteeism_at_work[-trainIndex,]
+```
+
+```{r, warning=FALSE, message=FALSE}
+absentgbm<- train(
+  form = `Absenteeism time in hours` ~ factor(`Month of absence`)+factor(`Day of the week`)+factor(Seasons)+factor(`Reason for absence`)+factor(`Disciplinary failure`)+factor(Education)+factor(`Social drinker`)+factor(`Social smoker`)+`Transportation expense`+`Distance from Residence to Work`+`Service time`+Age+`Work load Average/day`+`Hit target`+Son+Pet+Weight+Height+`Body mass index`,
+  data = AbsentTrain,
+  trControl = trainControl(method = "cv", number = 10),
+  method = "gbm",
+  tuneLength = 10,
+  verbose=FALSE)
+
+summary(absentgbm)
+```
+
+
+
