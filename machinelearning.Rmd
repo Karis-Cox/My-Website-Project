@@ -23,9 +23,9 @@ preProcValues <- preProcess(irisTest, method = c("center", "scale"))
 testTransformed <- predict(preProcValues, irisTest)
 ```
 
-# Clustering
+# Clustering Models
 
-In the following example I use spacial clustering to identify which data points belong to each classification. I use a k-means algorithm, one of the simplest to understand. I use 2, 3, and 4 clusters to see how well the data is centered around these cluster centers.
+Clustering is an unsupervised learning method used in machine learning. Unsupervised means there is not a target in mind. Rather, we are simply noticing the patterns in the data. In the following examples, I use K-means clustering, which makes centers in the data and assigns all data points to the closest center. The data points are then classified based on their center. I use 2, 3, and 4 cluster centers to see how well the data is centered around these cluster centers.
 
 ## Two Cluster Centers
 
@@ -110,3 +110,7 @@ ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Cluster)
 ggplot(data=Clusterdata,mapping = aes(x=Sepal.Width,y=Petal.Width,color=Species))+geom_point(alpha=0.5) + 
   geom_point(data=as.data.frame(FourClusters$centers), aes(color="Cluster center"), size=5) + theme(legend.title = element_blank())+ggtitle("Iris Cluster Demonstration")
 ```
+
+# Clustering in the Real World
+
+I have demonstrated how clustering can be used in machine learning, but what are some ways that this can be used in the real world? There are many scenarios when clustering could be beneficial. It is often used in marketing to identify households or individuals who are similar to each other to better understand how they need to market certain products to them. The same goes for streaming services. Businesses like Netflix and Hulu use clustering to identify subscribers who tend to watch similar shows or movies so they can provide better recommendations to them. It can also be used in the insurance industry. Insurance providers can identify households who are in the same cluster to see how similar they are based on how they use their insurance throughout the year. The insurance company can then set monthly premiums for a whole group based on their similar actions. Clustering also proves to be beneficial to the profession of accounting. Specifically, it can be used in auditing to identify outliers. This allows auditors to examine those numbers more closely and see what they are so high/low.
