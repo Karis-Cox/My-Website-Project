@@ -1,7 +1,7 @@
 ---
-title: "Final Project"
+title: "Absenteeism in the Workplace"
 description: |
-  Analyzing Absenteeism
+  Predicting absenteeism in the workplace using gradient tree boosting
 author:
   - name: Karis Cox- from the class of Dr. Hunt
 date: "`r Sys.Date()`"
@@ -17,13 +17,25 @@ library(rsample)
 load(file = "Absenteeism_at_work.Rda")
 ```
 
+In this project, I use gradient tree boosting to predict how often someone will be absent from work. The data set is from [UC Irvine's Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Absenteeism+at+work). The data uses records ranging from 2007-2010 from a Brazilian company. There are 740 observations with 21 different attributes.
+
+As you can see below, the data set proves to be fairly clean. There are not noticeable outliers, and the observations all seem to be reasonable.
+
 ```{r}
+psych::describe(Absenteeism_at_work)
+```
+
+Decision trees are a simple machine learning algorithm that are relatively easy to understand and employ. However, they often overfit the data, making the models less accurate when the testing data is used. To prevent this overfitting, there are models that combine multiple trees, increasing accuracy. In this project, I use gradient tree boosting to accomplish this. Boosting means combining many connected weak learners to make a strong learner. Each tree tries to minimize the errors of the previous tree. In boosting, trees are weak learners, but adding many of them in sequence and focusing on the errors from the previous tree makes them very efficient and accurate. Because trees are added sequentially, this algorithm learns more slowly, meaning it will perform better. Gradient boosting sequentially combines the weak learners so the new learner fits to the errors of the previous tree. The final model then aggregates these steps, making a strong learner.
+
+```{r}
+set.seed(45678)
 trainIndex <- createDataPartition(Absenteeism_at_work$`Absenteeism time in hours`, p = .6, list = FALSE, times = 1)
 AbsentTrain <- Absenteeism_at_work[ trainIndex,]
 AbsentTest  <- Absenteeism_at_work[-trainIndex,]
 ```
 
 ```{r, warning=FALSE, message=FALSE}
+set.seed(7777)
 absentgbm<- train(
   form = `Absenteeism time in hours` ~ factor(`Month of absence`)+factor(`Day of the week`)+factor(Seasons)+factor(`Reason for absence`)+factor(`Disciplinary failure`)+factor(Education)+factor(`Social drinker`)+factor(`Social smoker`)+`Transportation expense`+`Distance from Residence to Work`+`Service time`+Age+`Work load Average/day`+`Hit target`+Son+Pet+Weight+Height+`Body mass index`,
   data = AbsentTrain,
@@ -53,5 +65,55 @@ theme_light() +
 coord_flip()
 ```
 
+This chart shows the importance of each variable available in the dataset. The higher the importance, the more effect it has on how often one is absent from work.
+
+```{r}
+gridExtra::grid.arrange(
+  pdp::partial(absentgbm, pred.var = "Age", plot = TRUE, rug = TRUE,
+              plot.engine = "ggplot2"),
+  pdp::partial(absentgbm, pred.var = "Height", plot = TRUE, rug = TRUE,
+              plot.engine = "ggplot2"),
+  ncol = 2 
+)
+```
+
+```{r}
+pd <- pdp::partial(absentgbm, pred.var = c("Age","Height"))
+
+# Default PDP
+pdp::plotPartial(pd)
+```
+
+```{r}
+rwb <- colorRampPalette(c("darkred", "white", "pink"))
+pdp::plotPartial(pd, contour = TRUE, col.regions = rwb)
+```
+
+```{r}
+pdp::plotPartial(pd, levelplot = FALSE, zlab = "Predicted Absenteeism", colorkey = TRUE, 
+                    screen = list(z = -20, x = -60))
+
+```
+
+```{r}
+dens <- akima::interp(x = pd$Age, y = pd$`Height`, z = pd$yhat)
+
+# 3D partial dependence plot with a coloring scale
+p3 <- plotly::plot_ly(x = dens$x, 
+          y = dens$y, 
+          z = dens$z,
+          colors = c("blue", "grey", "red"),
+          type = "surface")
+# Add axis labels for 3D plots
+
+p3 <- p3%>% plotly::layout(scene = list(xaxis = list(title = 'Age'),
+                     yaxis = list(title = 'Height'),
+                     zaxis = list(title = 'Predicted Absence')))
+p3
 
 
+```
+
+As you can see from these previous graphs and visualizations, age and height both have an effect on being absent from work. In general, the older someone is and the taller someone is, the more likely they are to miss work. However, it is an unsound conclusion to say that the taller you are, the more you miss work. Because this data set does not include a variable for sex, we can assume from the results that males will miss work more, assuming they are taller on average.
+
+These results could be useful in various situations. I would say it could be beneficial in the hiring process to be able to identify those who will be more likely to be absent, as most employers do not want to hire someone that will be absent a large amount of time. Although we only used Age and Height in this example, other variables did have an effect on the predictions and could be used in other ways as well. For example, it might be beneficial to use the Average work load to see what the optimal amount is to reduce absenteeism.
